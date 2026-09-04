@@ -1,0 +1,83 @@
+name: Football Charts
+description: >-
+  Transparent football (soccer) statistics and model predictions across 90+ leagues: league tables (classic,
+  luck-adjusted, goals-based), results, fixtures with model probabilities, Dixon-Coles match probabilities, Monte Carlo
+  season projections, goal-timing distributions, team match logs, and a public prediction track record. Offers a free
+  REST API and a hosted MCP server.
+url: https://raw.githubusercontent.com/api-evangelist/football-charts/refs/heads/main/apis.yml
+created: '2026-09-04'
+modified: '2026-09-04'
+specificationVersion: '0.21'
+tags:
+  - football
+  - soccer
+  - sports
+  - sports-data
+  - statistics
+  - results
+  - standings
+  - fixtures
+  - predictions
+  - probability-models
+  - mcp
+  - agent-native
+  - free-api
+apis:
+  - name: Football Charts REST API
+    description: >-
+      Free read-only REST API for football statistics, standings, results, fixtures, match probabilities, season
+      projections, goal timing, and prediction track record. Bearer API key auth with a self-describing JSON descriptor
+      at the root.
+    humanURL: https://www.football-charts.com/developers
+    baseURL: https://footballcharts-backend.onrender.com/api/v1
+    tags:
+      - football
+      - soccer
+      - sports
+      - sports-data
+      - statistics
+      - results
+      - standings
+      - fixtures
+      - predictions
+      - probability-models
+      - mcp
+      - agent-native
+      - free-api
+    properties:
+      - type: Documentation
+        url: https://www.football-charts.com/developers
+  - name: Football Charts MCP Server
+    description: >-
+      Hosted MCP server exposing football statistics tools (list_leagues, get_league_table, get_rankings, get_results,
+      get_fixtures, get_match, get_season_projection, get_team, get_goal_timing, get_track_record) for AI agents. API
+      key embedded in URL path or via Authorization header on POST /mcp.
+    humanURL: https://www.football-charts.com/developers
+    baseURL: https://mcp.football-charts.com/mcp
+    tags:
+      - football
+      - soccer
+      - sports
+      - sports-data
+      - statistics
+      - results
+      - standings
+      - fixtures
+      - predictions
+      - probability-models
+      - mcp
+      - agent-native
+      - free-api
+    properties:
+      - type: MCPServer
+        url: https://mcp.football-charts.com/mcp
+      - type: Documentation
+        url: https://www.football-charts.com/developers
+maintainers:
+  - FN: Football Charts
+    url: https://www.football-charts.com
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 90
+  at: '2026-09-04T09:22:06.506Z'
