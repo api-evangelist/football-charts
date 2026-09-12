@@ -2,8 +2,12 @@ name: Football Charts
 description: >-
   Transparent football (soccer) statistics and model predictions across 90+ leagues: league tables (classic,
   luck-adjusted, goals-based), results, fixtures with model probabilities, Dixon-Coles match probabilities, Monte Carlo
-  season projections, goal-timing distributions, team match logs, and a public prediction track record. Offers a free
-  REST API and a hosted MCP server.
+  season projections, goal-timing distributions, team match logs, and a public prediction track record. A single
+  Dixon-Coles scoreline model produces one joint distribution per match, so 1X2, over/under and BTTS probabilities are
+  mutually consistent by construction; season outcomes come from 10,000-run Monte Carlo simulations re-run daily. Every
+  model signal is logged before kickoff and settled publicly. Offers a free read-only REST API with a self-describing
+  JSON descriptor and a hosted MCP server whose tools/list is answerable anonymously.
+image: https://www.football-charts.com/fc_logo4.png
 url: https://raw.githubusercontent.com/api-evangelist/football-charts/refs/heads/main/apis.yml
 created: '2026-09-04'
 modified: '2026-09-04'
@@ -19,6 +23,7 @@ tags:
   - fixtures
   - predictions
   - probability-models
+  - monte-carlo
   - mcp
   - agent-native
   - free-api
@@ -26,8 +31,10 @@ apis:
   - name: Football Charts REST API
     description: >-
       Free read-only REST API for football statistics, standings, results, fixtures, match probabilities, season
-      projections, goal timing, and prediction track record. Bearer API key auth with a self-describing JSON descriptor
-      at the root.
+      projections, goal timing, and prediction track record. Bearer API key auth (or X-API-Key) with a self-describing
+      JSON descriptor at the root. Ten GET operations plus self-serve key registration; 5,000 requests/day and 60/minute
+      on the free tier.
+    image: https://www.football-charts.com/fc_logo4.png
     humanURL: https://www.football-charts.com/developers
     baseURL: https://footballcharts-backend.onrender.com/api/v1
     tags:
@@ -41,43 +48,117 @@ apis:
       - fixtures
       - predictions
       - probability-models
-      - mcp
-      - agent-native
       - free-api
     properties:
       - type: Documentation
         url: https://www.football-charts.com/developers
+      - type: APIReference
+        url: https://www.football-charts.com/developers
+      - type: X-APIDescriptor
+        name: Self-describing JSON API descriptor
+        url: https://footballcharts-backend.onrender.com/api/v1/
+      - type: Authentication
+        url: authentication/football-charts-authentication.yml
+      - type: ErrorCatalog
+        url: errors/football-charts-problem-types.yml
+      - type: DataModel
+        url: data-model/football-charts-data-model.yml
   - name: Football Charts MCP Server
     description: >-
-      Hosted MCP server exposing football statistics tools (list_leagues, get_league_table, get_rankings, get_results,
-      get_fixtures, get_match, get_season_projection, get_team, get_goal_timing, get_track_record) for AI agents. API
-      key embedded in URL path or via Authorization header on POST /mcp.
+      Hosted MCP server (protocol 2025-06-18) exposing ten read-only football statistics tools (list_leagues,
+      get_league_table, get_rankings, get_results, get_fixtures, get_match, get_season_projection, get_team,
+      get_goal_timing, get_track_record) for AI agents. tools/list answers anonymously; tool calls take the API key
+      embedded in the URL path or via an Authorization header on POST /mcp. Also runnable locally as
+      npx -y footballcharts-mcp.
+    image: https://www.football-charts.com/fc_logo4.png
     humanURL: https://www.football-charts.com/developers
     baseURL: https://mcp.football-charts.com/mcp
     tags:
       - football
       - soccer
-      - sports
       - sports-data
-      - statistics
-      - results
-      - standings
-      - fixtures
-      - predictions
-      - probability-models
       - mcp
       - agent-native
+      - predictions
+      - probability-models
       - free-api
     properties:
       - type: MCPServer
         url: https://mcp.football-charts.com/mcp
       - type: Documentation
         url: https://www.football-charts.com/developers
+      - type: SourceCode
+        name: Open-source MCP server (MIT)
+        url: https://github.com/ddevetak/footballcharts-mcp
+      - type: ToolCrosswalk
+        url: mcp/football-charts-tool-crosswalk.yml
 maintainers:
   - FN: Football Charts
+    email: contact@football-charts.com
     url: https://www.football-charts.com
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 90
   at: '2026-09-04T09:22:06.506Z'
+common:
+- type: Website
+  url: https://www.football-charts.com
+- type: DeveloperPortal
+  url: https://www.football-charts.com/developers
+- type: Documentation
+  url: https://www.football-charts.com/developers
+- type: APIReference
+  url: https://www.football-charts.com/developers
+- type: GettingStarted
+  url: https://www.football-charts.com/developers
+- type: SignUp
+  name: Free API key registration form
+  url: https://www.football-charts.com/developers
+- type: Pricing
+  name: Free vs paid tiers
+  url: https://www.football-charts.com/developers
+- type: TermsOfService
+  name: API terms (attribution required, no resale)
+  url: https://www.football-charts.com/developers
+- type: PrivacyPolicy
+  url: https://www.football-charts.com/privacy
+- type: Support
+  name: About & contact
+  url: https://www.football-charts.com/about
+- type: SourceCode
+  name: footballcharts-mcp (MIT)
+  url: https://github.com/ddevetak/footballcharts-mcp
+- type: MCPServer
+  url: mcp/football-charts-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/football-charts-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/football-charts-llms.txt
+- type: Packages
+  url: packages/football-charts-packages.yml
+- type: Authentication
+  url: authentication/football-charts-authentication.yml
+- type: Conventions
+  url: conventions/football-charts-conventions.yml
+- type: ErrorCatalog
+  url: errors/football-charts-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/football-charts-lifecycle.yml
+- type: Conformance
+  url: conformance/football-charts-conformance.yml
+- type: DataModel
+  url: data-model/football-charts-data-model.yml
+- type: Plans
+  url: plans/football-charts-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/football-charts-rate-limits.yml
+- type: DomainSecurity
+  url: security/football-charts-domain-security.yml
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v3
