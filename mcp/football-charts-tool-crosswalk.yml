@@ -1,0 +1,102 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  mcp/football-charts-tools-list.json (anonymous tools/list) bound against the provider's own
+  self-describing REST descriptor at https://footballcharts-backend.onrender.com/api/v1/ and the
+  first-party MCP server source at
+  https://raw.githubusercontent.com/ddevetak/footballcharts-mcp/main/src/tools.js
+note: >-
+  Football Charts publishes NO OpenAPI, so the `rest:` column carries METHOD + path identifiers taken
+  verbatim from the provider's machine-readable API descriptor rather than operationIds. Every binding
+  below is read out of the provider's own open-source MCP server (each tool handler is a literal
+  fcGet('<path>') call), so confidence is high by construction, not by name-matching.
+surfaces:
+  openapi: null
+  openapi_note: no OpenAPI/Swagger document published on any host (see conformance/ and x-coverage)
+  rest:
+    descriptor: https://footballcharts-backend.onrender.com/api/v1/
+    base_url: https://footballcharts-backend.onrender.com/api/v1
+    gated: true
+    gate: 'Bearer fc_<key> or X-API-Key; the descriptor itself is anonymous'
+  graphql: null
+  mcp:
+    url: https://mcp.football-charts.com/mcp
+    gated: false
+    gate_note: 'tools/list is anonymous; tools/call requires the API key'
+crosswalk:
+  - tool: list_leagues
+    category: reference
+    rest: ['GET /leagues/']
+    binding: rest
+    confidence: high
+  - tool: get_league_table
+    category: standings
+    rest: ['GET /leagues/{league}/table/']
+    binding: rest
+    confidence: high
+    note: 'season passed through as a query param; view left unset (classic)'
+  - tool: get_rankings
+    category: standings
+    rest: ['GET /leagues/{league}/table/']
+    binding: rest
+    confidence: high
+    note: >-
+      Same REST operation as get_league_table, differentiated only by the required view=luck|goals
+      query param — two MCP tools fan in to one REST path.
+  - tool: get_results
+    category: results
+    rest: ['GET /leagues/{league}/results/']
+    binding: rest
+    confidence: high
+    note: >-
+      The tool's `last` input has no REST equivalent; the server fetches the full result set and
+      trims client-side.
+  - tool: get_fixtures
+    category: fixtures
+    rest: ['GET /leagues/{league}/fixtures/']
+    binding: rest
+    confidence: high
+  - tool: get_match
+    category: match
+    rest: ['GET /matches/{slug}/']
+    binding: rest
+    confidence: high
+  - tool: get_season_projection
+    category: projections
+    rest: ['GET /leagues/{league}/projection/']
+    binding: rest
+    confidence: high
+  - tool: get_team
+    category: teams
+    rest: ['GET /leagues/{league}/teams/{team}/']
+    binding: rest
+    confidence: high
+  - tool: get_goal_timing
+    category: analytics
+    rest: ['GET /leagues/{league}/goal-timing/']
+    binding: rest
+    confidence: high
+  - tool: get_track_record
+    category: accountability
+    rest: ['GET /track-record/']
+    binding: rest
+    confidence: high
+mcp_only: []
+rest_only:
+  - operation: 'GET /leagues/{league}/teams/?season='
+    capability: teams
+    reason: >-
+      Team roster for a league in table order. No MCP tool exposes it; get_team requires the caller
+      to already know a team key.
+  - operation: 'POST /keys/register/'
+    capability: account
+    reason: >-
+      Key registration. Deliberately absent from the MCP surface — an agent authenticates with a key
+      it was already given.
+coverage:
+  tools_named: 10
+  tools_bound: 10
+  mcp_only: 0
+  rest_operations_total: 11
+  rest_operations_with_a_tool: 9
+  rest_operations_without_a_tool: 2

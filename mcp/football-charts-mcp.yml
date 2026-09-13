@@ -1,0 +1,157 @@
+generated: '2026-09-04'
+method: searched
+source: https://mcp.football-charts.com/mcp
+status: published
+notes: tools/list is answered ANONYMOUSLY on the hosted endpoint (HTTP 200, SSE framing), so the ten tools
+  below carry the provider's own inputSchema verbatim rather than a derived guess. The raw JSON-RPC response
+  is saved at mcp/football-charts-tools-list.json. Tool CALLS require an API key; discovery does not.
+deployment:
+  mode: both
+  endpoint: https://mcp.football-charts.com/mcp
+  install: npx -y footballcharts-mcp
+  package: https://www.npmjs.com/package/footballcharts-mcp
+  auth: api-key
+  verified: probed
+  probe_prior: (never probed)
+  probe: live
+  probe_why: live
+  checked: '2026-09-11'
+  source: claimed-backlog re-probe 2026-09-11
+server:
+  name: football-charts
+  version: 0.2.0
+  protocol_version: '2025-06-18'
+  transport: http
+  url: https://mcp.football-charts.com/mcp
+  capabilities:
+    tools:
+      listChanged: true
+  registry:
+    name: io.github.ddevetak/footballcharts-mcp
+    url: https://registry.modelcontextprotocol.io
+    status: active
+    published: '2026-08-18'
+    latest_version: 0.2.0
+    manifest: https://github.com/ddevetak/footballcharts-mcp/blob/main/server.json
+  source_code: https://github.com/ddevetak/footballcharts-mcp
+  license: MIT
+auth:
+  remote:
+  - style: url-path
+    form: https://mcp.football-charts.com/<fc_key>/mcp
+    note: Documented for claude.ai custom connectors, whose configuration field accepts only a URL.
+  - style: header
+    form: 'Authorization: Bearer fc_<key>'
+    note: POST /mcp with the header works identically.
+  local_stdio:
+  - style: env
+    form: FC_API_KEY=fc_<key>
+  key_registration: POST https://footballcharts-backend.onrender.com/api/v1/keys/register/
+clients_documented:
+- claude.ai custom connector (remote URL)
+- Claude Desktop (claude_desktop_config.json, npx stdio)
+- Claude Code (claude mcp add football-charts -e FC_API_KEY=... -- npx -y footballcharts-mcp)
+tools:
+- name: list_leagues
+  title: List leagues
+  description: All 90+ leagues on football-charts.com with country, league key and the seasons available
+    to your key (newest first). Call this first to resolve league keys and season strings.
+  required: []
+  optional: []
+  read_only: true
+  source_operation: GET /api/v1/leagues/
+- name: get_league_table
+  title: League table
+  description: 'Current standings for a league season: position, points, W/D/L, goals, goal difference,
+    last-5 form.'
+  required:
+  - league
+  optional:
+  - season
+  read_only: true
+  source_operation: GET /api/v1/leagues/{league}/table/
+- name: get_rankings
+  title: Alternative rankings
+  description: 'The table re-ranked by FC''s alternative views: ''luck'' (luck-adjusted) or ''goals''
+    (highest-scoring matches).'
+  required:
+  - league
+  - view
+  optional:
+  - season
+  read_only: true
+  source_operation: GET /api/v1/leagues/{league}/table/?view=luck|goals
+- name: get_results
+  title: Match results
+  description: Finished matches of a league season with FT/HT scores and first-goal minute, oldest first.
+  required:
+  - league
+  optional:
+  - season
+  - team
+  - last
+  read_only: true
+  source_operation: GET /api/v1/leagues/{league}/results/
+- name: get_fixtures
+  title: Upcoming fixtures
+  required:
+  - league
+  optional: []
+  read_only: true
+  source_operation: GET /api/v1/leagues/{league}/fixtures/
+- name: get_match
+  title: Match detail
+  required:
+  - slug
+  optional: []
+  read_only: true
+  source_operation: GET /api/v1/matches/{slug}/
+- name: get_season_projection
+  title: Season projection
+  description: Title / top-4 / relegation %, points ranges (10k Monte Carlo sims, daily).
+  required:
+  - league
+  optional: []
+  read_only: true
+  source_operation: GET /api/v1/leagues/{league}/projection/
+- name: get_team
+  title: Team page
+  required:
+  - league
+  - team
+  optional:
+  - season
+  read_only: true
+  source_operation: GET /api/v1/leagues/{league}/teams/{team}/
+- name: get_goal_timing
+  title: Goal timing heat map
+  required:
+  - league
+  optional:
+  - season
+  read_only: true
+  source_operation: GET /api/v1/leagues/{league}/goal-timing/
+- name: get_track_record
+  title: Model track record
+  description: FC's settled public prediction ledger.
+  required: []
+  optional:
+  - days
+  read_only: true
+  source_operation: GET /api/v1/track-record/
+x-evidence:
+- fetched: '2026-09-04'
+  url: https://mcp.football-charts.com/mcp
+  method: POST tools/list (jsonrpc 2.0, anonymous)
+  http_status: 200
+  content_type: text/event-stream
+  file: mcp/football-charts-tools-list.json
+- fetched: '2026-09-04'
+  url: https://mcp.football-charts.com/mcp
+  method: POST initialize (anonymous)
+  http_status: 200
+  result: serverInfo football-charts 0.2.0, protocolVersion 2025-06-18
+- fetched: '2026-09-04'
+  url: https://registry.modelcontextprotocol.io/v0/servers?search=footballcharts
+  http_status: 200
+  result: io.github.ddevetak/footballcharts-mcp listed active, versions 0.1.1 and 0.2.0

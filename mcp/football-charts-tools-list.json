@@ -1,0 +1,322 @@
+{
+  "result": {
+    "tools": [
+      {
+        "name": "list_leagues",
+        "title": "List leagues",
+        "description": "All 90+ leagues on football-charts.com with country, league key and the seasons available to your key (newest first). Call this first to resolve league keys and season strings.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_league_table",
+        "title": "League table",
+        "description": "Current standings for a league season: position, points, W/D/L, goals, goal difference, last-5 form.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "league": {
+              "type": "string",
+              "description": "League key, e.g. 'premier', 'spain1', 'brazil1', 'wgermany1'. Use list_leagues to discover keys."
+            },
+            "season": {
+              "type": "string",
+              "description": "Season string exactly as returned by list_leagues (summer leagues '2026', winter '2026-2027'). Omit for the latest."
+            }
+          },
+          "required": [
+            "league"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_rankings",
+        "title": "Alternative rankings",
+        "description": "The table re-ranked by FC's alternative views: 'luck' (luck-adjusted \u2014 who over/under-performs their underlying numbers) or 'goals' (highest-scoring matches).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "league": {
+              "type": "string",
+              "description": "League key, e.g. 'premier', 'spain1', 'brazil1', 'wgermany1'. Use list_leagues to discover keys."
+            },
+            "view": {
+              "type": "string",
+              "enum": [
+                "luck",
+                "goals"
+              ],
+              "description": "Ranking view"
+            },
+            "season": {
+              "type": "string",
+              "description": "Season string exactly as returned by list_leagues (summer leagues '2026', winter '2026-2027'). Omit for the latest."
+            }
+          },
+          "required": [
+            "league",
+            "view"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_results",
+        "title": "Match results",
+        "description": "Finished matches of a league season with FT/HT scores and first-goal minute, oldest first. Optionally filter by team name substring and cap the number of most recent matches.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "league": {
+              "type": "string",
+              "description": "League key, e.g. 'premier', 'spain1', 'brazil1', 'wgermany1'. Use list_leagues to discover keys."
+            },
+            "season": {
+              "type": "string",
+              "description": "Season string exactly as returned by list_leagues (summer leagues '2026', winter '2026-2027'). Omit for the latest."
+            },
+            "team": {
+              "type": "string",
+              "description": "Team name substring filter"
+            },
+            "last": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "description": "Return only the N most recent matches (default: all)"
+            }
+          },
+          "required": [
+            "league"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_fixtures",
+        "title": "Upcoming fixtures",
+        "description": "Upcoming matches of a league with FC's model probabilities (Dixon-Coles based) for HT over 1.5 and FT over 2.5. Probabilities, not betting advice.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "league": {
+              "type": "string",
+              "description": "League key, e.g. 'premier', 'spain1', 'brazil1', 'wgermany1'. Use list_leagues to discover keys."
+            }
+          },
+          "required": [
+            "league"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_match",
+        "title": "Match detail",
+        "description": "One match by slug (country/league-slug/date-home-vs-away, as returned by get_fixtures): full model probability block across markets (1X2, over/under lines, BTTS, HT lines), team ratings, first-goal-time histograms.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "description": "Match slug, e.g. 'england/premier-league/2026-08-22-arsenal-vs-chelsea'"
+            }
+          },
+          "required": [
+            "slug"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_season_projection",
+        "title": "Season projection",
+        "description": "Monte Carlo season projection (10,000 simulations, refreshed daily): per team the title / top-4 / relegation probability, mean final points and a 10th-90th percentile points range.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "league": {
+              "type": "string",
+              "description": "League key, e.g. 'premier', 'spain1', 'brazil1', 'wgermany1'. Use list_leagues to discover keys."
+            }
+          },
+          "required": [
+            "league"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_team",
+        "title": "Team page",
+        "description": "One team in a league season: table row, full match log (scores, HT, venue, outcome), goal-timing bins, first-goal distribution and per-team stats.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "league": {
+              "type": "string",
+              "description": "League key, e.g. 'premier', 'spain1', 'brazil1', 'wgermany1'. Use list_leagues to discover keys."
+            },
+            "team": {
+              "type": "string",
+              "description": "Team slug, e.g. 'arsenal' (see get_league_table / list of teams)"
+            },
+            "season": {
+              "type": "string",
+              "description": "Season string exactly as returned by list_leagues (summer leagues '2026', winter '2026-2027'). Omit for the latest."
+            }
+          },
+          "required": [
+            "league",
+            "team"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_goal_timing",
+        "title": "Goal timing heat map",
+        "description": "When each team in a league scores: goals per 15-minute bin per team, plus league-level stats (most active period, late-goal share).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "league": {
+              "type": "string",
+              "description": "League key, e.g. 'premier', 'spain1', 'brazil1', 'wgermany1'. Use list_leagues to discover keys."
+            },
+            "season": {
+              "type": "string",
+              "description": "Season string exactly as returned by list_leagues (summer leagues '2026', winter '2026-2027'). Omit for the latest."
+            }
+          },
+          "required": [
+            "league"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_track_record",
+        "title": "Model track record",
+        "description": "FC's public, settled prediction track record \u2014 every published model signal graded against real results. Transparency data: hit rates and P/L by market, no cherry-picking.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "days": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 365,
+              "description": "Lookback window in days (default 90)"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 1
+}
