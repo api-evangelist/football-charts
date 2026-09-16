@@ -13,6 +13,21 @@ created: '2026-09-04'
 modified: '2026-09-04'
 specificationVersion: '0.21'
 tags:
+  - Football
+  - Soccer
+  - Sports
+  - Sports Data
+  - Statistics
+  - Results
+  - Standings
+  - Fixtures
+  - Predictions
+  - probability-models
+  - monte-carlo
+  - MCP
+  - agent-native
+  - Free API
+tags_raw:
   - football
   - soccer
   - sports
@@ -38,6 +53,18 @@ apis:
     humanURL: https://www.football-charts.com/developers
     baseURL: https://footballcharts-backend.onrender.com/api/v1
     tags:
+      - Football
+      - Soccer
+      - Sports
+      - Sports Data
+      - Statistics
+      - Results
+      - Standings
+      - Fixtures
+      - Predictions
+      - probability-models
+      - Free API
+    tags_raw:
       - football
       - soccer
       - sports
@@ -74,6 +101,15 @@ apis:
     humanURL: https://www.football-charts.com/developers
     baseURL: https://mcp.football-charts.com/mcp
     tags:
+      - Football
+      - Soccer
+      - Sports Data
+      - MCP
+      - agent-native
+      - Predictions
+      - probability-models
+      - Free API
+    tags_raw:
       - football
       - soccer
       - sports-data
