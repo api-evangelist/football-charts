@@ -1,0 +1,68 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  live unauthenticated requests to https://footballcharts-backend.onrender.com/api/v1/*, plus the
+  error handling in the provider's own MCP client
+  (https://github.com/ddevetak/footballcharts-mcp/blob/main/src/fc.js)
+format: custom-json
+rfc9457: false
+envelope:
+  content_type: application/json
+  shape: '{"error": {"code": "<snake_case>", "message": "<human readable>"}}'
+  fields:
+    - {name: error.code, type: string, note: 'stable machine-readable slug'}
+    - {name: error.message, type: string, note: 'human-readable, often carries the remediation inline'}
+note: >-
+  Football Charts publishes no OpenAPI and no docs error reference, so this catalog is OBSERVED, not
+  derived from a spec and not enumerated by the provider. Only the codes actually returned to us are
+  listed; the list is therefore a floor, not a complete registry. The provider's own MCP client
+  treats any non-2xx by surfacing error.message verbatim, falling back to
+  "football-charts API error <status> (<code>)".
+problems:
+  - status: 401
+    code: missing_key
+    title: No API key supplied
+    message: >-
+      Pass your API key as "Authorization: Bearer fc_..." or "X-API-Key". Free keys: POST
+      /api/v1/keys/register/
+    remediation: 'Register a free key at POST /api/v1/keys/register/ and send it on every request.'
+    observed_on:
+      - 'GET /api/v1/leagues/'
+      - 'GET /api/v1/leagues/premier/table/'
+      - 'GET /api/v1/track-record/'
+      - 'GET /api/v1/matches/does-not-exist/'
+    observed: '2026-09-04'
+  - status: 401
+    code: unknown_key
+    title: API key not recognised
+    message: API key not recognised.
+    remediation: 'Check the key value, or issue a new one; keys begin with fc_.'
+    observed_on: ['GET /api/v1/leagues/ with Authorization: Bearer <invalid>']
+    observed: '2026-09-04'
+  - status: 404
+    code: null
+    title: Not Found (framework HTML)
+    content_type: text/html
+    message: 'The requested resource was not found on this server.'
+    remediation: >-
+      Check the path against GET /api/v1/. An unrouted path does NOT return the JSON error envelope —
+      an agent parsing the response as JSON will fail here, which is the single sharpest edge in this
+      API's error contract.
+    observed_on: ['GET /api/v1/nope/']
+    observed: '2026-09-04'
+  - status: 405
+    code: null
+    title: Method Not Allowed
+    content_type: text/html
+    headers: {allow: GET}
+    remediation: 'Data endpoints are GET-only; the Allow header names the accepted method.'
+    observed_on: ['OPTIONS /api/v1/leagues/']
+    observed: '2026-09-04'
+not_observed:
+  - status: 429
+    note: >-
+      Documented limits are 5,000/day and 60/min but no exhaustion response was provoked (that would
+      require a key and deliberate abuse). The status code and body on exhaustion are undocumented.
+  - note: >-
+      Authenticated 404 (unknown league key / unknown match slug) could not be observed without a
+      key; unauthenticated requests short-circuit to 401 before routing.

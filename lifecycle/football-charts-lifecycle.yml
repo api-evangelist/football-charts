@@ -1,0 +1,45 @@
+generated: '2026-09-04'
+method: searched
+source: https://www.football-charts.com/developers
+versioning:
+  scheme: uri-path
+  current: v1
+  declared_by: 'GET https://footballcharts-backend.onrender.com/api/v1/ -> {"version": 1}'
+  docs: https://www.football-charts.com/developers
+  policy_documented: false
+deprecation:
+  policy_url: null
+  policy_documented: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation or Sunset/Deprecation (RFC 8594) policy published, and no deprecated operations to
+    record — the provider ships no OpenAPI and the v1 endpoint list is current.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    None published. The free tier is offered without an availability commitment; the REST API is
+    hosted on Render (x-render-origin-server: gunicorn) and the MCP server on a separate host.
+status_page: null
+status_page_note: >-
+  Probed https://www.football-charts.com/status -> 404. No status.football-charts.com and no
+  third-party status page linked from the site or the developer page.
+changelog:
+  url: null
+  note: >-
+    No dated changelog on the site (probed /changelog -> 404, /blog -> 404). The nearest thing to a
+    release history is the MCP server's npm version list (0.1.0 -> 0.1.1 -> 0.2.0, 2026-08-18 to
+    2026-08-21) and its GitHub commit history, both of which cover the client, not the API.
+roadmap:
+  url: null
+  published_intent: >-
+    The developer page publishes a "Paid (coming)" tier — multi-book odds (1X2, O/U, BTTS, AH, DNB,
+    corners), full historical archive, bulk export, higher limits, commercial license — with no date.
+    This is a stated direction, not a roadmap document.
+maturity:
+  api_first_seen: '2026-08'
+  evidence: >-
+    MCP server first published to npm 2026-08-18 and to the MCP registry the same day; the API is
+    younger than three months as measured on 2026-09-04.
+deprecated_operations: []

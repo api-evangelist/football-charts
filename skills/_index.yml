@@ -1,0 +1,23 @@
+generated: '2026-09-04'
+method: generated
+source: >-
+  mcp/football-charts-tools-list.json (real tool names and inputSchemas fetched anonymously from
+  https://mcp.football-charts.com/mcp) and the provider's self-describing REST descriptor at
+  https://footballcharts-backend.onrender.com/api/v1/
+note: >-
+  Football Charts publishes no OpenAPI, so these skills are grounded in the provider's live MCP tool
+  identities and its own published REST endpoint list rather than in operationIds. Every tool name
+  and every REST path below appears verbatim in one of those two fetched documents.
+skills:
+  - file: football-charts-league-standings.md
+    name: Read a Football Charts league table
+    api: mcp/football-charts-mcp.yml
+    operations: [list_leagues, get_league_table, get_rankings]
+  - file: football-charts-match-probabilities.md
+    name: Get Football Charts match probabilities
+    api: mcp/football-charts-mcp.yml
+    operations: [list_leagues, get_fixtures, get_match, get_results]
+  - file: football-charts-season-projection-and-record.md
+    name: Project a Football Charts season and check the model's record
+    api: mcp/football-charts-mcp.yml
+    operations: [list_leagues, get_season_projection, get_track_record, get_team, get_goal_timing]

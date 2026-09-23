@@ -1,0 +1,114 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://www.football-charts.com/developers,
+  https://footballcharts-backend.onrender.com/api/v1/ (self-describing descriptor),
+  live unauthenticated probes of the REST API, and the first-party MCP server source at
+  https://github.com/ddevetak/footballcharts-mcp
+summary: >-
+  A small, read-only statistics API. Ten of eleven documented REST operations are GET; the eleventh
+  is self-serve key registration. Every MCP tool the provider publishes is annotated
+  readOnlyHint:true / destructiveHint:false / idempotentHint:true in its own tools/list response.
+  The cross-cutting semantics are correspondingly thin: no idempotency contract (there is nothing to
+  replay), no documented pagination, no rate-limit response headers, and a compact non-RFC-9457
+  error envelope.
+authentication:
+  style: api-key
+  headers: ['Authorization: Bearer fc_<key>', 'X-API-Key: fc_<key>']
+  detail: authentication/football-charts-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  base: https://footballcharts-backend.onrender.com/api/v1
+  self_description: >-
+    GET /api/v1/ returns an anonymous JSON manifest naming the version, auth style, free-tier limits
+    and the full endpoint list. This is the provider's machine-readable contract in the absence of an
+    OpenAPI.
+  policy_documented: false
+idempotency:
+  coverage: na
+  scope: []
+  mechanism: null
+  header: null
+  rationale: >-
+    There is no mutating data surface to protect. All ten data operations are GET and the provider
+    annotates every MCP tool idempotentHint:true. The only non-GET operation in the whole API is
+    POST /api/v1/keys/register/, which issues a free read-only key; the provider documents no
+    Idempotency-Key header for it and re-registering simply yields another key. Recording this as
+    `none` would score a missing mechanism against an API that has nothing to make idempotent.
+reversibility:
+  grade: na
+  rationale: >-
+    Read-only API — no write an agent can take that would need taking back. The single account
+    operation (key registration) has no documented revoke/delete endpoint; the developer page states
+    only that a new key can be issued at any time, which is rotation, not reversal. No window is
+    asserted here because the provider states none.
+  write_surfaces:
+    - operation: 'POST /api/v1/keys/register/'
+      reversal_operation: null
+      window: null
+      docs: https://www.football-charts.com/developers
+      note: 'Provider states keys are read-only and replaceable; no API-side revoke is documented.'
+dry_run_mode:
+  supported: na
+  rationale: read-only API; there is no action to rehearse
+pagination:
+  style: none-documented
+  params: []
+  response_fields: []
+  note: >-
+    Neither the descriptor nor the developer page documents any page/cursor/offset parameter. The
+    closest thing is the MCP tool get_results' `last` input, which has NO REST equivalent — the
+    provider's MCP server fetches the full result set and trims it client-side. get_track_record
+    takes a `days` window. Collection sizes are naturally bounded by a league season.
+filtering:
+  params:
+    - {param: season, applies_to: 'table, results, goal-timing, teams, team', note: 'season string exactly as returned by list_leagues'}
+    - {param: team, applies_to: 'results, goal-timing', note: 'team name substring filter'}
+    - {param: view, applies_to: 'table', values: [classic, luck, goals]}
+    - {param: days, applies_to: 'track-record'}
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  provider_request_id: false
+  observed_headers:
+    - {header: rndr-id, origin: 'Render platform (x-render-origin-server: gunicorn)'}
+    - {header: cf-ray, origin: 'Cloudflare edge'}
+  note: >-
+    Both are infrastructure identifiers, not a provider-issued correlation id an agent could quote in
+    a support request. No X-Request-Id is returned.
+error_envelope:
+  format: custom-json
+  rfc9457: false
+  content_type: application/json
+  shape: '{"error": {"code": "<snake_case>", "message": "<human readable>"}}'
+  detail: errors/football-charts-problem-types.yml
+  note: >-
+    The envelope is consistent on API-level errors, but an unrouted path under /api/v1/ falls through
+    to the framework's HTML 404 page rather than the JSON envelope.
+rate_limit_signaling:
+  response_headers: []
+  documented_limits: '5,000 requests/day, 60/minute (free tier)'
+  exhaustion_status: undocumented
+  note: >-
+    No X-RateLimit-* / RateLimit-* / Retry-After headers were observed on live responses. An agent
+    can read the limits from the docs and from GET /api/v1/, but gets no runtime signal of how much
+    quota is left.
+  detail: rate-limits/football-charts-rate-limits.yml
+caching:
+  observed: 'cf-cache-status: DYNAMIC on every probed response'
+  note: >-
+    No Cache-Control or ETag observed. The provider states season projections are re-simulated daily
+    (10,000 runs).
+attribution:
+  required: true
+  string: 'Data by football-charts.com'
+  source: 'GET /api/v1/ "attribution" field, and the terms paragraph on the developer page'
+cross_links:
+  authentication: authentication/football-charts-authentication.yml
+  errors: errors/football-charts-problem-types.yml
+  lifecycle: lifecycle/football-charts-lifecycle.yml
+  rate_limits: rate-limits/football-charts-rate-limits.yml
+  plans: plans/football-charts-plans-pricing.yml

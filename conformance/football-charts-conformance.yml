@@ -1,0 +1,95 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  https://footballcharts-backend.onrender.com/api/v1/ (descriptor),
+  mcp/football-charts-tools-list.json, live probes, https://www.football-charts.com/developers
+note: >-
+  There is no OpenAPI to read securitySchemes from, so every assertion below is derived from the
+  provider's descriptor, its live responses, and its published MCP surface. Absences are recorded as
+  conforms:false rather than omitted.
+standards:
+  - id: mcp
+    name: Model Context Protocol
+    conforms: true
+    version: '2025-06-18'
+    evidence: >-
+      POST https://mcp.football-charts.com/mcp initialize -> 200 with
+      protocolVersion 2025-06-18, serverInfo {name: football-charts, version: 0.2.0}; tools/list
+      returns 10 tools with draft-07 inputSchemas and MCP tool annotations
+      (readOnlyHint/destructiveHint/idempotentHint/openWorldHint).
+  - id: mcp-server-json
+    name: MCP server.json registry manifest (2025-12-11 schema)
+    conforms: true
+    evidence: >-
+      https://github.com/ddevetak/footballcharts-mcp/blob/main/server.json declares
+      $schema https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json and is
+      listed active in registry.modelcontextprotocol.io as io.github.ddevetak/footballcharts-mcp.
+  - id: json-schema-draft-07
+    name: JSON Schema draft-07
+    conforms: true
+    evidence: 'every MCP tool inputSchema declares $schema http://json-schema.org/draft-07/schema#'
+  - id: openapi
+    name: OpenAPI
+    conforms: false
+    evidence: >-
+      Probed /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /docs, /redoc
+      on the API host and the docs host — all 404. The machine-readable contract the provider does
+      publish is a bespoke JSON descriptor at GET /api/v1/.
+  - id: graphql
+    name: GraphQL
+    conforms: false
+    evidence: no /graphql surface documented or discovered
+  - id: asyncapi
+    name: AsyncAPI
+    conforms: false
+    evidence: no event, streaming or webhook surface published
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: false
+    evidence: 'API-key auth only (Bearer fc_<key> / X-API-Key); no /.well-known/oauth-authorization-server on any host'
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: '/.well-known/openid-configuration -> 404 on all four hosts'
+  - id: rfc9457-problem-details
+    name: RFC 9457 Problem Details
+    conforms: false
+    evidence: >-
+      Errors use a custom envelope {"error": {"code", "message"}} with content-type application/json,
+      not application/problem+json.
+  - id: rfc9116-security-txt
+    name: RFC 9116 security.txt
+    conforms: false
+    evidence: '/.well-known/security.txt -> 404 on all four hosts'
+  - id: rfc8594-sunset
+    name: RFC 8594 Sunset header
+    conforms: false
+    evidence: no Sunset/Deprecation headers or deprecation policy published
+  - id: apis-json
+    name: APIs.json
+    conforms: false
+    evidence: '/apis.json, /apis.yml, /.well-known/apis.json -> 404 on all four hosts'
+  - id: a2a
+    name: A2A Agent Card
+    conforms: false
+    evidence: '/.well-known/agent-card.json and /.well-known/agent.json -> 404 on all four hosts'
+  - id: rest-versioning
+    name: URI-path API versioning
+    conforms: true
+    evidence: 'base path /api/v1/; descriptor declares {"version": 1}'
+domain_standards:
+  checked: true
+  found: none
+  note: >-
+    Sports statistics has no widely adopted machine-readable interchange standard that this contract
+    could declare, and the API declares none. League and team identity is carried by bespoke string
+    keys ('premier', 'spain1', 'wgermany1') resolved through list_leagues, not by any external
+    identifier scheme. REWARD-ONLY dimension: recorded as absent rather than invented.
+compliance_program:
+  published: false
+  certifications: []
+  note: >-
+    No trust center, no SOC 2 / ISO 27001 / GDPR posture page. probe-security-programs.py returned
+    vdp=none trust=none. The site publishes a privacy policy (https://www.football-charts.com/privacy)
+    and a responsible-gambling notice (18+, "statistics, not betting advice"), which are consumer
+    disclosures rather than a compliance program.

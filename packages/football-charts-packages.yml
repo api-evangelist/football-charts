@@ -1,0 +1,45 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://registry.npmjs.org/footballcharts-mcp (registry metadata),
+  https://www.football-charts.com/developers (the provider's own link to it),
+  https://registry.modelcontextprotocol.io/v0/servers?search=footballcharts
+summary: >-
+  Football Charts publishes exactly ONE package: the open-source MCP server. There is no REST client
+  SDK in any language — the developer page shows raw curl and requests examples instead. Because no
+  client library exists, this artifact carries NO `SDKs` pointer; claiming one would credit the
+  provider with a surface it does not ship.
+sdk_count: 0
+package_count: 1
+registries_checked: [npm, pypi, rubygems, packagist, crates.io, pkg.go.dev, nuget, maven-central]
+packages:
+  - language: javascript
+    registry: npm
+    name: footballcharts-mcp
+    kind: mcp-server
+    url: https://www.npmjs.com/package/footballcharts-mcp
+    repository: https://github.com/ddevetak/footballcharts-mcp
+    install: npx -y footballcharts-mcp
+    bin: footballcharts-mcp
+    license: MIT
+    official: true
+    official_evidence: >-
+      Linked from the provider's own developer page as "The MCP server is open source"; package
+      homepage is https://www.football-charts.com/developers; authored by the Football Charts
+      maintainer (github.com/ddevetak).
+    version: 0.2.0
+    published: '2026-08-21'
+    first_published: '2026-08-18'
+    versions: ['0.1.0', '0.1.1', '0.2.0']
+    downloads_last_month: 579
+    downloads_window: '2026-07-31 to 2026-08-29'
+    note: >-
+      Current with the API it wraps — first published 2026-08-18 and last released 2026-08-21, and
+      the hosted MCP server reports the same serverInfo version (0.2.0). This is a local stdio MCP
+      server, not a REST client SDK.
+absent:
+  - registry: pypi
+    checked: 'https://pypi.org/pypi/footballcharts/json'
+    status: 404
+  - registry: npm
+    note: no scoped @football-charts/* or client-SDK package published

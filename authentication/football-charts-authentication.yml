@@ -1,0 +1,65 @@
+generated: '2026-09-04'
+method: searched
+source: https://www.football-charts.com/developers
+docs: https://www.football-charts.com/developers
+note: >-
+  DERIVED-FROM-SPEC was not possible — Football Charts publishes no OpenAPI. This profile is read
+  from the provider's developer page, its self-describing API descriptor at
+  https://footballcharts-backend.onrender.com/api/v1/, its open-source MCP server, and live
+  unauthenticated probes of the API (which return the auth instructions in the error body).
+summary:
+  types: [apiKey]
+  api_key_in: [header, path]
+  oauth2_flows: []
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  anonymous_surfaces:
+    - 'GET https://footballcharts-backend.onrender.com/api/v1/ (self-describing descriptor)'
+    - 'POST https://mcp.football-charts.com/mcp — initialize and tools/list'
+schemes:
+  - name: bearerApiKey
+    type: apiKey
+    in: header
+    parameter: Authorization
+    format: 'Bearer fc_<key>'
+    surfaces: [rest, mcp-remote]
+    sources: ['https://www.football-charts.com/developers', 'live 401 body']
+  - name: xApiKey
+    type: apiKey
+    in: header
+    parameter: X-API-Key
+    surfaces: [rest]
+    sources: ['live 401 body from https://footballcharts-backend.onrender.com/api/v1/leagues/']
+    note: >-
+      Not shown on the developer page — discovered in the API's own 401 message, which names both
+      accepted headers.
+  - name: mcpUrlPathKey
+    type: apiKey
+    in: path
+    parameter: '<key>'
+    format: 'https://mcp.football-charts.com/<fc_key>/mcp'
+    surfaces: [mcp-remote]
+    sources: ['https://www.football-charts.com/developers']
+    note: >-
+      Documented for claude.ai custom connectors, whose configuration field accepts only a URL. The
+      provider states keys are read-only and replaceable, so a key in a URL grants published
+      statistics and nothing else.
+  - name: fcApiKeyEnv
+    type: apiKey
+    in: environment
+    parameter: FC_API_KEY
+    surfaces: [mcp-stdio]
+    sources: ['https://github.com/ddevetak/footballcharts-mcp/blob/main/server.json']
+key_issuance:
+  self_serve: true
+  endpoint: 'POST https://footballcharts-backend.onrender.com/api/v1/keys/register/'
+  request_body: '{"email": "you@example.com"}'
+  web_form: https://www.football-charts.com/developers
+  key_prefix: fc_
+  shown_once: true
+  rotation: 'Provider states a new key can be issued at any time; keys are read-only.'
+  cost: free
+x-evidence:
+  - {fetched: '2026-09-04', url: 'https://footballcharts-backend.onrender.com/api/v1/leagues/', http_status: 401, body: '{"error": {"code": "missing_key", "message": "Pass your API key as \"Authorization: Bearer fc_...\" or \"X-API-Key\". Free keys: POST /api/v1/keys/register/"}}'}
+  - {fetched: '2026-09-04', url: 'https://footballcharts-backend.onrender.com/api/v1/leagues/', http_status: 401, sent: 'Authorization: Bearer <invalid>', body: '{"error": {"code": "unknown_key", "message": "API key not recognised."}}'}

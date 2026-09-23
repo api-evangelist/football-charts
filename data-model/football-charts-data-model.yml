@@ -1,0 +1,82 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  https://footballcharts-backend.onrender.com/api/v1/ (endpoint list) and
+  mcp/football-charts-tools-list.json (tool inputSchemas)
+note: >-
+  DERIVED FROM PATH STRUCTURE AND TOOL PARAMETERS, NOT FROM SCHEMAS. Football Charts publishes no
+  OpenAPI and therefore no components.schemas, so no response field is asserted below — only the
+  entities and the containment relationships the URL hierarchy and the tool inputs actually prove
+  (e.g. /leagues/{league}/teams/{team}/ proves a team belongs to a league). Response payload shapes
+  are unknown without a key and are deliberately left unrecorded rather than guessed.
+identifiers:
+  - entity: League
+    key: league
+    form: 'bespoke lowercase string slug'
+    examples: [premier, spain1, brazil1, wgermany1]
+    resolver: 'list_leagues / GET /leagues/ — the provider explicitly instructs callers to resolve keys here first'
+  - entity: Season
+    key: season
+    form: 'string; summer leagues "2026", winter leagues "2026-2027"'
+    resolver: 'list_leagues returns the seasons a key may query, newest first'
+  - entity: Team
+    key: team
+    form: 'string slug in the path; a name SUBSTRING when used as a filter on results/goal-timing'
+    note: 'the same parameter name is a key in one position and a fuzzy filter in another'
+  - entity: Match
+    key: slug
+    form: 'string slug'
+entities:
+  - name: League
+    endpoints: ['GET /leagues/', 'GET /leagues/{league}/table/']
+    tools: [list_leagues, get_league_table, get_rankings]
+  - name: Season
+    endpoints: ['GET /leagues/{league}/table/?season=']
+    note: 'not addressable on its own; always a query parameter scoping a league resource'
+  - name: Table
+    endpoints: ['GET /leagues/{league}/table/']
+    tools: [get_league_table, get_rankings]
+    views: [classic, luck, goals]
+    note: 'position, points, W/D/L, goals, goal difference, last-5 form (per the provider description)'
+  - name: Team
+    endpoints: ['GET /leagues/{league}/teams/', 'GET /leagues/{league}/teams/{team}/']
+    tools: [get_team]
+  - name: Match
+    endpoints: ['GET /matches/{slug}/', 'GET /leagues/{league}/results/']
+    tools: [get_match, get_results]
+  - name: Fixture
+    endpoints: ['GET /leagues/{league}/fixtures/']
+    tools: [get_fixtures]
+    note: 'upcoming matches carrying model probabilities'
+  - name: SeasonProjection
+    endpoints: ['GET /leagues/{league}/projection/']
+    tools: [get_season_projection]
+    note: 'title / top-4 / relegation percentages and points ranges from 10,000 daily Monte Carlo sims'
+  - name: GoalTiming
+    endpoints: ['GET /leagues/{league}/goal-timing/']
+    tools: [get_goal_timing]
+    note: 'goals per 15-minute bin, per team'
+  - name: TrackRecordEntry
+    endpoints: ['GET /track-record/']
+    tools: [get_track_record]
+    note: 'settled public prediction ledger; windowed by a days parameter on the tool'
+  - name: ApiKey
+    endpoints: ['POST /keys/register/']
+    tools: []
+relationships:
+  - {from: League, to: Season, type: has_many, via: season, evidence: 'list_leagues returns leagues + available seasons'}
+  - {from: League, to: Table, type: has_one, via: 'path /leagues/{league}/table/', note: 'one table per league per season per view'}
+  - {from: League, to: Team, type: has_many, via: 'path /leagues/{league}/teams/'}
+  - {from: Team, to: League, type: belongs_to, via: 'path /leagues/{league}/teams/{team}/'}
+  - {from: League, to: Match, type: has_many, via: 'path /leagues/{league}/results/'}
+  - {from: League, to: Fixture, type: has_many, via: 'path /leagues/{league}/fixtures/'}
+  - {from: League, to: SeasonProjection, type: has_one, via: 'path /leagues/{league}/projection/'}
+  - {from: League, to: GoalTiming, type: has_one, via: 'path /leagues/{league}/goal-timing/'}
+  - {from: Match, to: League, type: belongs_to, via: 'results are league-scoped; /matches/{slug}/ is global'}
+  - {from: Team, to: Match, type: has_many, via: 'team filter on /leagues/{league}/results/'}
+traversal:
+  entry_point: 'GET /leagues/ (MCP: list_leagues)'
+  note: >-
+    The whole graph is entered through the league list. Every other path except /matches/{slug}/ and
+    /track-record/ requires a league key, and the provider's own tool description says "Call this
+    first to resolve league keys and season strings."

@@ -1,0 +1,39 @@
+generated: '2026-09-04'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.football-charts.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 26 15:29:17 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: footballcharts-backend.onrender.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 22 21:54:17 2026 GMT
+  hsts: false
+- host: mcp.football-charts.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov 17 13:36:21 2026 GMT
+  hsts: false
+domains:
+- domain: football-charts.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+- domain: onrender.com
+  dnssec: false
+  caa:
+  - 0 issuewild "letsencrypt.org"
+  - 0 issuewild "pki.goog; cansignhttpexchanges=yes"
+  - 0 iodef "mailto:security+caafailure@render.com"
+  - 0 issue "digicert.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "pki.goog; cansignhttpexchanges=yes"
+  spf: false
+  dmarc: true
+  dmarc_policy: none

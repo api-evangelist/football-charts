@@ -1,0 +1,92 @@
+generated: '2026-09-04'
+method: probed
+source: live GET of the named /.well-known/ path list on every host this record knows
+summary: >-
+  Nothing served. All 14 named discovery paths return 404 on all four hosts (the apex 308-redirects
+  to www, which 404s them). No security.txt, no OIDC/OAuth metadata, no api-catalog, no apis.json,
+  no ai-plugin, no agent card. Each host returns a genuine 404 status for a path that does not
+  exist and a 200 only for paths that do, so this is a real absence, not a catch-all masking a hit:
+  the per-host negative control returned 404 everywhere.
+hit_count: 0
+path_echo_control: passed
+negative_control_path: /.well-known/football-charts-negative-control-b26da6b7.json
+hosts:
+  - host: https://www.football-charts.com
+    role: website + developer docs
+    negative_control_status: 404
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/ucp.json, status: 404}
+      - {path: /.well-known/acp.json, status: 404}
+      - {path: /.well-known/aauth-resource.json, status: 404}
+      - {path: /.well-known/apis.json, status: 404}
+      - {path: /apis.json, status: 404}
+      - {path: /apis.yml, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://football-charts.com
+    role: apex domain
+    note: >-
+      Every path answers 308 with a 15-byte body redirecting to the www host; the www rows above are
+      the authoritative result for this domain.
+    negative_control_status: 308
+    documents:
+      - {path: /.well-known/security.txt, status: 308}
+      - {path: /.well-known/openid-configuration, status: 308}
+      - {path: /.well-known/oauth-authorization-server, status: 308}
+      - {path: /.well-known/oauth-protected-resource, status: 308}
+      - {path: /.well-known/api-catalog, status: 308}
+      - {path: /.well-known/ai-plugin.json, status: 308}
+      - {path: /.well-known/ucp.json, status: 308}
+      - {path: /.well-known/acp.json, status: 308}
+      - {path: /.well-known/aauth-resource.json, status: 308}
+      - {path: /.well-known/apis.json, status: 308}
+      - {path: /apis.json, status: 308}
+      - {path: /apis.yml, status: 308}
+      - {path: /.well-known/agent-card.json, status: 308}
+      - {path: /.well-known/agent.json, status: 308}
+  - host: https://footballcharts-backend.onrender.com
+    role: REST API host (baseURL)
+    negative_control_status: 404
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/ucp.json, status: 404}
+      - {path: /.well-known/acp.json, status: 404}
+      - {path: /.well-known/aauth-resource.json, status: 404}
+      - {path: /.well-known/apis.json, status: 404}
+      - {path: /apis.json, status: 404}
+      - {path: /apis.yml, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://mcp.football-charts.com
+    role: hosted MCP server
+    note: >-
+      Returns a 50-byte application/json 404 body for every path. Notably there is no
+      /.well-known/oauth-protected-resource, which is consistent with the server's documented
+      API-key auth rather than an OAuth-protected MCP resource.
+    negative_control_status: 404
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/ucp.json, status: 404}
+      - {path: /.well-known/acp.json, status: 404}
+      - {path: /.well-known/aauth-resource.json, status: 404}
+      - {path: /.well-known/apis.json, status: 404}
+      - {path: /apis.json, status: 404}
+      - {path: /apis.yml, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}

@@ -1,0 +1,50 @@
+generated: '2026-09-04'
+method: searched
+source: https://www.football-charts.com/developers
+currency: null
+plan_count: 1
+note: >-
+  Exactly one purchasable-or-usable plan exists today: the free tier. A second tier is advertised as
+  "Paid (coming)" with a feature list but no price, no currency, no billing period and no way to buy
+  — interested parties are told to email contact@football-charts.com. It is recorded below as
+  status: announced and is NOT counted in plan_count, because a plan a buyer cannot buy is not a
+  plan.
+plans:
+  - name: Free
+    status: available
+    price: 0
+    currency: null
+    billing_period: null
+    signup: https://www.football-charts.com/developers
+    signup_api: 'POST https://footballcharts-backend.onrender.com/api/v1/keys/register/'
+    included:
+      - All 90+ leagues (top and lower divisions, women's leagues)
+      - Current + previous season per league
+      - Model probabilities (Dixon-Coles) and daily 10,000-run Monte Carlo season projections
+      - Tables, results, fixtures, goal timing, team pages, settled track record
+      - Hosted MCP server access with the same key
+    excluded:
+      - Betting odds (multi-book 1X2, O/U, BTTS, AH, DNB, corners)
+      - Full historical archive
+      - Bulk export
+      - Commercial use / resale
+    quota:
+      requests_per_day: 5000
+      requests_per_minute: 60
+    overage: 'undocumented — no overage or paid burst is offered'
+    conditions:
+      - 'Attribution required: "Data by football-charts.com"'
+      - 'Personal and research use only; no resale'
+  - name: Paid
+    status: announced
+    price: null
+    currency: null
+    billing_period: null
+    availability: 'not yet available — "coming"'
+    contact: contact@football-charts.com
+    included:
+      - Multi-book odds (1X2, O/U, BTTS, AH, DNB, corners)
+      - Full historical archive
+      - Bulk export & higher limits
+      - Commercial license
+    quota: {requests_per_day: null, requests_per_minute: null}

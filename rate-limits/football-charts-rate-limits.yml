@@ -1,0 +1,44 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://www.football-charts.com/developers and
+  https://footballcharts-backend.onrender.com/api/v1/ (free_tier.limits, anonymous)
+limit_count: 2
+note: >-
+  The numbers are published in two places, including a machine-readable one — GET /api/v1/ returns
+  free_tier.limits "5000/day, 60/min". What is NOT published is any runtime signal: no
+  X-RateLimit-*, RateLimit-* or Retry-After header was returned on any live response, and the status
+  code and body on exhaustion are undocumented. An agent can budget against the documented ceiling
+  but cannot see how much of it is left, nor tell a 429 apart from any other failure without
+  provoking one.
+limits:
+  - scope: per-key
+    window: 1d
+    limit: 5000
+    burst: null
+    plan: Free
+    source: 'https://footballcharts-backend.onrender.com/api/v1/ -> free_tier.limits'
+  - scope: per-key
+    window: 1m
+    limit: 60
+    burst: null
+    plan: Free
+    source: 'https://footballcharts-backend.onrender.com/api/v1/ -> free_tier.limits'
+response_headers:
+  ratelimit_limit: null
+  ratelimit_remaining: null
+  ratelimit_reset: null
+  retry_after: null
+  observed: []
+  probe: >-
+    Live headers on GET /api/v1/leagues/ (401) and GET /api/v1/ (200) on 2026-09-04 carried only
+    date, content-type, cf-cache-status, cross-origin-opener-policy, referrer-policy, rndr-id,
+    server, vary, x-content-type-options, x-frame-options, x-render-origin-server, cf-ray, alt-svc.
+exhaustion:
+  status_code: undocumented
+  body: undocumented
+  note: >-
+    Not provoked — establishing it would require a key and deliberate abuse of a free service. The
+    provider's own MCP client has no 429/backoff handling, which suggests no Retry-After contract to
+    honour.
+quota_scope: 'per API key (keys are self-serve and free, so quota is per key, not per organisation)'
