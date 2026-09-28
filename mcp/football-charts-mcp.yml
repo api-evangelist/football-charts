@@ -99,6 +99,9 @@ tools:
   optional: []
   read_only: true
   source_operation: GET /api/v1/leagues/{league}/fixtures/
+  description: 'Upcoming matches of one league, earliest first: kick-off date and time, teams, a slug,
+    and the model''s calibrated probabilities (home/away, over/under ladders, both teams to score, half-time
+    lines; draw = 1 − home − away) with team attack/d'
 - name: get_match
   title: Match detail
   required:
@@ -106,6 +109,9 @@ tools:
   optional: []
   read_only: true
   source_operation: GET /api/v1/matches/{slug}/
+  description: 'One match in full: the complete model probability block (calibrated and raw, all markets),
+    team ratings, first-goal-time histograms for both sides (fgt_h, fgt_a), recent form, and — once played
+    — the score, half-time score and status. Use f'
 - name: get_season_projection
   title: Season projection
   description: Title / top-4 / relegation %, points ranges (10k Monte Carlo sims, daily).
@@ -123,6 +129,9 @@ tools:
   - season
   read_only: true
   source_operation: GET /api/v1/leagues/{league}/teams/{team}/
+  description: 'Everything held on one team in one league season: its table row (with luck and expected
+    points), the full match log (date, opponent, venue H/A, score, half-time score, first-goal minute,
+    outcome), goals per 15-minute bin, first-goal distrib'
 - name: get_goal_timing
   title: Goal timing heat map
   required:
@@ -131,6 +140,9 @@ tools:
   - season
   read_only: true
   source_operation: GET /api/v1/leagues/{league}/goal-timing/
+  description: Goals per 15-minute bin (0-15 … 90+) for every team in a league season, each with peak_bins
+    (the bin or bins with most goals — ties are listed; report a tie as a tie), late_share_pct and first_half_pct,
+    plus league totals and the most activ
 - name: get_track_record
   title: Model track record
   description: FC's settled public prediction ledger.
@@ -155,3 +167,5 @@ x-evidence:
   url: https://registry.modelcontextprotocol.io/v0/servers?search=footballcharts
   http_status: 200
   result: io.github.ddevetak/footballcharts-mcp listed active, versions 0.1.1 and 0.2.0
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
