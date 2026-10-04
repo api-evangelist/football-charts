@@ -7,6 +7,21 @@ description: >-
   mutually consistent by construction; season outcomes come from 10,000-run Monte Carlo simulations re-run daily. Every
   model signal is logged before kickoff and settled publicly. Offers a free read-only REST API with a self-describing
   JSON descriptor and a hosted MCP server whose tools/list is answerable anonymously.
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - ddevetak/footballcharts-mcp
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 image: https://www.football-charts.com/fc_logo4.png
 url: https://raw.githubusercontent.com/api-evangelist/football-charts/refs/heads/main/apis.yml
 created: '2026-09-04'
@@ -25,7 +40,7 @@ tags:
   - probability-models
   - monte-carlo
   - MCP
-  - agent-native
+  - Agent-Native
   - Free API
 tags_raw:
   - football
@@ -105,7 +120,7 @@ apis:
       - Soccer
       - Sports Data
       - MCP
-      - agent-native
+      - Agent-Native
       - Predictions
       - probability-models
       - Free API
