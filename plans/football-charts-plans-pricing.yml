@@ -1,69 +1,49 @@
-generated: '2026-09-04'
+name: Football Charts pricing
+generated: '2026-10-20'
 method: searched
 source: https://www.football-charts.com/developers
-currency: null
-plan_count: 1
-note: >-
-  Exactly one purchasable-or-usable plan exists today: the free tier. A second tier is advertised as
-  "Paid (coming)" with a feature list but no price, no currency, no billing period and no way to buy
-  — interested parties are told to email contact@football-charts.com. It is recorded below as
-  status: announced and is NOT counted in plan_count, because a plan a buyer cannot buy is not a
-  plan.
+audience: developer-api
+pricing_basis: tiered-subscription
+published: true
+currency: EUR
+plan_count: 4
+delivery:
+  delivery: managed
+note: Pricing section of the developers page, read rendered 2026-10-20. Supersedes the 2026-09-04 reading, when the paid tier was "coming" with no price. The Odds archive is a one-off download, not an API plan.
 plans:
-  - name: Free
-    status: available
-    price: 0
-    currency: null
-    billing_period: null
-    signup: https://www.football-charts.com/developers
-    signup_api: 'POST https://footballcharts-backend.onrender.com/api/v1/keys/register/'
-    included:
-      - All 90+ leagues (top and lower divisions, women's leagues)
-      - Current + previous season per league
-      - Model probabilities (Dixon-Coles) and daily 10,000-run Monte Carlo season projections
-      - Tables, results, fixtures, goal timing, team pages, settled track record
-      - Hosted MCP server access with the same key
-    excluded:
-      - Betting odds (multi-book 1X2, O/U, BTTS, AH, DNB, corners)
-      - Full historical archive
-      - Bulk export
-      - Commercial use / resale
-    quota:
-      requests_per_day: 5000
-      requests_per_minute: 60
-    overage: 'undocumented — no overage or paid burst is offered'
-    conditions:
-      - 'Attribution required: "Data by football-charts.com"'
-      - 'Personal and research use only; no resale'
-  - name: Paid
-    status: announced
-    price: null
-    currency: null
-    billing_period: null
-    availability: 'not yet available — "coming"'
-    contact: contact@football-charts.com
-    included:
-      - Multi-book odds (1X2, O/U, BTTS, AH, DNB, corners)
-      - Full historical archive
-      - Bulk export & higher limits
-      - Commercial license
-    quota: {requests_per_day: null, requests_per_minute: null}
-x-canonical:
-  generated: '2026-10-08'
-  vocabulary: all/0-working/economics/plans-canonical.yml
-  models:
-  - metered
-  units: []
-  plans:
-  - name: Free
-    access: other
-    model: metered
-    model_how: derived
-    units: []
-    periods: []
-  - name: Paid
-    access: other
-    model: unstated
-    model_how: derived
-    units: []
-    periods: []
+- name: Free
+  price: 0
+  price_text: "€0"
+  features:
+  - All 90+ leagues
+  - Current + previous season
+  - Probabilities, projections, results, tables
+  - Attribution required
+  limits:
+  - Keyless 300/day per IP
+  - free key 5,000/day
+- name: Personal
+  price_text: "€9 / month · or €99 / year"
+  billing_period: month or year
+  features:
+  - Every season back to 2020 , all 90+ leagues
+  - Results, tables, goal timings, teams
+  - personal and research use
+  limits:
+  - 5,000 requests/day
+- name: Commercial
+  price_text: "€39 / month · or €390 / year"
+  billing_period: month or year
+  features:
+  - Everything in Personal
+  - Use inside a product, app or paid service
+  - Invoice on request
+  limits:
+  - 25,000 requests/day
+- name: Odds archive
+  price: 199
+  price_text: "€199 one-off"
+  features:
+  - A download, not an API — CSV + Parquet
+  - Per-bookmaker opening + closing odds, 2020-21 to 2025-26
+  limits: []

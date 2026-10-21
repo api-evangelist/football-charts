@@ -1,11 +1,12 @@
 ---
-name: Read a Football Charts league table
+name: football-charts-league-standings
 description: >-
   Resolve a league key and season, then read the standings for it — classic, luck-adjusted or
   goals-based — from the Football Charts API or its MCP server.
 api: mcp/football-charts-mcp.yml
 surface: mcp+rest
-operations: [list_leagues, get_league_table, get_rankings]
+operations: ['get_api_v1', 'get_leagues_league_table']
+mcp_tools: [list_leagues, get_league_table, get_rankings]
 rest_operations: ['GET /api/v1/leagues/', 'GET /api/v1/leagues/{league}/table/']
 generated: '2026-09-04'
 method: generated

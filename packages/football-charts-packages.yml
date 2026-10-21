@@ -27,10 +27,10 @@ packages:
       Linked from the provider's own developer page as "The MCP server is open source"; package
       homepage is https://www.football-charts.com/developers; authored by the Football Charts
       maintainer (github.com/ddevetak).
-    version: 0.2.0
-    published: '2026-08-21'
+    version: 0.5.0
+    published: '2026-09-06'
     first_published: '2026-08-18'
-    versions: ['0.1.0', '0.1.1', '0.2.0']
+    versions: ['0.1.0', '0.1.1', '0.2.0', '0.5.0']  # latest per registry.npmjs.org 2026-10-20
     downloads_last_month: 579
     downloads_window: '2026-07-31 to 2026-08-29'
     note: >-

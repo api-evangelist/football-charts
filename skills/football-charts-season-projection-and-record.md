@@ -1,11 +1,12 @@
 ---
-name: Project a Football Charts season and check the model's record
+name: football-charts-season-projection-and-record
 description: >-
   Read the Monte Carlo season projection for a league — title, top-4 and relegation probabilities —
   and check it against the provider's own settled prediction ledger before you quote it.
 api: mcp/football-charts-mcp.yml
 surface: mcp+rest
-operations: [list_leagues, get_season_projection, get_track_record, get_team, get_goal_timing]
+operations: ['get_api_v1', 'get_api_v1_leagues_premier_projection']
+mcp_tools: [list_leagues, get_season_projection, get_track_record, get_team, get_goal_timing]
 rest_operations:
   - 'GET /api/v1/leagues/'
   - 'GET /api/v1/leagues/{league}/projection/'

@@ -1,0 +1,105 @@
+openapi: 3.1.0
+info:
+  title: Football Charts API
+  version: '2026-10-20'
+  description: 'GENERATED FROM DOCUMENTATION by API Evangelist on 2026-10-20: 5 operation(s)
+    read from 1 public documentation page(s) (each operation names its page in x-source).
+    This is not the provider''s published contract; Football Charts has published
+    no machine-readable contract that the pipeline could find. Engine: anthropic.'
+  x-evidence-tiers:
+    code-example: 2
+    documentation: 3
+    pages-with-code: 1
+    pages-read: 1
+  x-generated-from: documentation
+  x-provenance: generated
+  x-authored-by: API Evangelist
+  x-generated: '2026-10-20'
+  x-generator: generate-contract-from-docs.py
+  x-engine: anthropic
+  x-sources:
+  - https://www.football-charts.com/developers
+  x-base-note: 'Docs state "Base URL: https://footballcharts-backend.onrender.com/api/v1";
+    relative paths from the REST endpoints table were prefixed with /api/v1.'
+servers:
+- url: https://footballcharts-backend.onrender.com
+paths:
+  /api/v1:
+    get:
+      operationId: get_api_v1
+      tags:
+      - Api
+      summary: API self-description endpoint.
+      x-source: https://www.football-charts.com/developers
+      responses:
+        '200':
+          description: Success (status as documented)
+      x-evidence:
+        kind: documentation
+  /api/v1/leagues/premier/projection:
+    get:
+      operationId: get_api_v1_leagues_premier_projection
+      tags:
+      - Api
+      summary: GET /api/v1/leagues/premier/projection
+      x-source: https://www.football-charts.com/developers
+      responses:
+        '200':
+          description: Success (status as documented)
+      x-evidence:
+        kind: code-example
+        language: python
+        snippet: requests.get("https://footballcharts-backend.onrender.com/api/v1/leagues/premier/projection/")
+  /api/v1/leagues/premier/table:
+    get:
+      operationId: get_api_v1_leagues_premier_table
+      tags:
+      - Api
+      summary: GET /api/v1/leagues/premier/table
+      x-source: https://www.football-charts.com/developers
+      responses:
+        '200':
+          description: Success (status as documented)
+      x-evidence:
+        kind: code-example
+        language: curl
+        snippet: curl curl https://footballcharts-backend.onrender.com/api/v1/leagues/premier/table/
+  /api/v1/leagues/{league}/table/:
+    get:
+      operationId: get_leagues_league_table
+      tags:
+      - Leagues
+      summary: 'Standings: points, W/D/L, goals, form; view=luck or goals'
+      x-source: https://www.football-charts.com/developers
+      parameters:
+      - name: league
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: season
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: view
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success (status as documented)
+      x-evidence:
+        kind: documentation
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security:
+- bearer: []
+tags:
+- name: Api
+- name: Leagues
+- name: Mcp

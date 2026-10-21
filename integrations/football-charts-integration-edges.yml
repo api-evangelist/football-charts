@@ -1,3 +1,18 @@
+generated: '2026-10-20'
+method: searched
+source:
+- https://zapier.com/apps/football-charts/integrations
+- https://n8n.io/integrations/football-charts/
+- https://composio.dev/toolkits/football-charts
+- https://monid.ai/tools/football-charts
+checked:
+- https://registry.modelcontextprotocol.io/v0/servers
+- https://composio.dev/toolkits/football-charts
+- https://monid.ai/tools/football-charts
+- https://n8n.io/integrations/football-charts/
+- https://zapier.com/apps/football-charts/integrations
+summary: null
+marketplace_apps: []
 edges:
 - partner_name: MCP Registry
   partner: mcp
@@ -14,7 +29,7 @@ edges:
     registered_name: io.github.ddevetak/footballcharts-mcp
     register_id: io.github.ddevetak/footballcharts-mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   mcp_registry:
     servers:
     - io.github.ddevetak/footballcharts-mcp
@@ -31,7 +46,4 @@ edges:
   - remote-domain
   detected_by: sweep-agent-tools.py
   first_seen: '2026-10-14'
-generated: '2026-10-14'
-method: searched
-checked:
-- https://registry.modelcontextprotocol.io/v0/servers
+templates: []

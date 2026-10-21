@@ -1,0 +1,108 @@
+generated: '2026-10-20'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 8
+  own: 3
+  other_domain: 2
+  platform: 3
+  roles:
+  - api
+  - other
+  - website
+hosts:
+- host: api.football-charts.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: football-charts.com
+  role: api
+  relation: own
+- host: api.modelcontextprotocol.io
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: modelcontextprotocol.io
+  role: api
+  relation: other-domain
+- host: api.onrender.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: onrender.com
+  role: api
+  relation: platform
+- host: footballcharts-backend.onrender.com
+  found_by:
+  - apis[]
+  - contract-discovery
+  - vendor-detect
+  types: []
+  serves:
+  - api
+  - cdn
+  vendor: cloudflare
+  registrable_domain: onrender.com
+  role: other
+  relation: platform
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - SourceCode
+  serves: []
+  registrable_domain: github.com
+  role: other
+  relation: platform
+- host: mcp.football-charts.com
+  found_by:
+  - apis[]
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  registrable_domain: football-charts.com
+  role: other
+  relation: own
+- host: registry.modelcontextprotocol.io
+  found_by:
+  - probed
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: modelcontextprotocol.io
+  role: other
+  relation: other-domain
+- host: www.football-charts.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - well-known
+  - vendor-detect
+  types:
+  - Blog
+  - Website
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  - SignUp
+  - Pricing
+  - TermsOfService
+  - PrivacyPolicy
+  - Support
+  serves:
+  - docs
+  - hosting
+  vendor: vercel
+  registrable_domain: football-charts.com
+  role: website
+  relation: own

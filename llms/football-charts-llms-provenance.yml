@@ -1,0 +1,6 @@
+generated: '2026-10-20'
+method: probed
+generator: harvest-llms.py
+source: https://www.football-charts.com/llms.txt
+bytes: 3666
+note: saved verbatim; the provider's own document

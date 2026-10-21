@@ -1,0 +1,21 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/_ae-authored/football-charts-openapi-generated.yml
+vocabulary:
+  name: Football Charts Domain Vocabulary
+  description: 'Terms declared by Football Charts''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-20'
+  terms:
+  - term: Api
+    definition: 'Resource group in the contract; its operation GET /api/v1: API self-description endpoint.'
+    tags:
+    - Resource Group
+    source: openapi/_ae-authored/football-charts-openapi-generated.yml
+  - term: Leagues
+    definition: 'Resource group in the contract; its operation GET /api/v1/leagues/{league}/table/: Standings: points, W/D/L, goals, form; view=luck
+      or goals'
+    tags:
+    - Resource Group
+    source: openapi/_ae-authored/football-charts-openapi-generated.yml

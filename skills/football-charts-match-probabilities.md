@@ -1,11 +1,12 @@
 ---
-name: Get Football Charts match probabilities
+name: football-charts-match-probabilities
 description: >-
   Pull upcoming fixtures with model probabilities for a league, then drill into one match for the
   full probability block across markets.
 api: mcp/football-charts-mcp.yml
 surface: mcp+rest
-operations: [list_leagues, get_fixtures, get_match, get_results]
+operations: ['get_api_v1']
+mcp_tools: [list_leagues, get_fixtures, get_match, get_results]
 rest_operations:
   - 'GET /api/v1/leagues/'
   - 'GET /api/v1/leagues/{league}/fixtures/'
