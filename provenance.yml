@@ -18,58 +18,19 @@ artifacts:
   descriptor/football-charts-api-descriptor.json:
     method: unknown
     evidence: no authorship recorded
-  errors/football-charts-problem-types.yml:
-    method: unknown
-    evidence: no authorship recorded
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  hosts/football-charts-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
     method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+    evidence: carries an API Evangelist house phrase
+  integrations/football-charts-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -153,12 +114,30 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/football-charts-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/football-charts-llms-provenance.yml:
+    method: generated
+    evidence: 'derive-llms-provenance.py: generated'
   llms/football-charts-llms.txt:
     method: generated
-    evidence: carries an API Evangelist house phrase
+    evidence: 'derive-llms-provenance.py: generated'
   mcp/football-charts-mcp.yml:
     method: searched
     evidence: declared in the artifact
@@ -177,6 +156,9 @@ artifacts:
   rate-limits/football-charts-rate-limits.yml:
     method: searched
     evidence: declared in the artifact
+  rules/football-charts-rules.yml:
+    method: generated
+    evidence: declared in the artifact
   security/football-charts-domain-security.yml:
     method: unknown
     evidence: no authorship recorded
@@ -191,6 +173,12 @@ artifacts:
     evidence: declared in the artifact
   skills/football-charts-season-projection-and-record.md:
     method: generated
+    evidence: declared in the artifact
+  vendors/football-charts-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/football-charts-vocabulary.yml:
+    method: derived
     evidence: declared in the artifact
   well-known/football-charts-well-known.yml:
     method: unknown
