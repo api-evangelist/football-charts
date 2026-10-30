@@ -1,4 +1,4 @@
-# football-charts
+# Football Charts
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,29 +64,119 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Transparent football (soccer) statistics and model predictions across 90+ leagues: league tables
-(classic, luck-adjusted, goals-based), results, fixtures with model probabilities, Dixon-Coles match
-probabilities, Monte Carlo season projections, goal-timing distributions, team match logs, and a
-public prediction track record.
+Transparent football (soccer) statistics and model predictions across 90+ leagues: league tables (classic, luck-adjusted, goals-based), results, fixtures with model probabilities, Dixon-Coles match probabilities, Monte Carlo season projections, goal-timing distributions, team match logs, and a public prediction track record. A single Dixon-Coles scoreline model produces one joint distribution per match, so 1X2, over/under and BTTS probabilities are mutually consistent by construction; season outcomes come from 10,000-run Monte Carlo simulations re-run daily. Every model signal is logged before kickoff and settled publicly. Offers a free read-only REST API with a self-describing JSON descriptor and a hosted MCP server whose tools/list is answerable anonymously.
 
-- **Website:** https://www.football-charts.com
-- **Developer API & MCP server:** https://www.football-charts.com/developers
-- **REST base URL:** https://footballcharts-backend.onrender.com/api/v1
-- **Hosted MCP endpoint:** https://mcp.football-charts.com/mcp
-- **MCP server source (MIT):** https://github.com/ddevetak/footballcharts-mcp
+**Areas:** Football · Soccer · Sports · Sports Data · Statistics · Results · Standings · Fixtures · Predictions · probability-models · monte-carlo · MCP
 
-## What this profile found
+## Football Charts on APIs.io
 
-Football Charts publishes **no OpenAPI, GraphQL, AsyncAPI or webhook contract**, and serves nothing
-at any `/.well-known/` path on any of its four hosts. What it does publish is machine-readable and
-was captured verbatim:
+Everything profiled for Football Charts is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/football-charts/](https://apis.io/providers/football-charts/)** — or go straight to one of the APIs or properties below.
 
-- a self-describing JSON API descriptor at `GET /api/v1/` (name, version, auth, free-tier limits and
-  the full endpoint list) — `descriptor/`
-- a hosted MCP server whose `tools/list` answers **anonymously**, returning all ten tools with real
-  draft-07 `inputSchema`s — `mcp/football-charts-tools-list.json`
-- an MCP registry manifest (`io.github.ddevetak/footballcharts-mcp`, active) and an MIT-licensed
-  open-source server on npm
+### APIs (3)
 
-Because the MCP server's source binds each tool to a literal REST path, the tool crosswalk in `mcp/`
-is read out of the provider's own code rather than inferred.
+- [Football Charts REST API](https://apis.io/apis/football-charts/football-charts-rest-api/) — Free read-only REST API for football statistics, standings, results, fixtures, match probabilities, season projections, goal timing, and prediction track…
+- [Football Charts MCP Server](https://apis.io/apis/football-charts/football-charts-mcp-server/) — Hosted MCP server (protocol 2025-06-18) exposing ten read-only football statistics tools (list_leagues, get_league_table, get_rankings, get_results,…
+- [Football Charts API](https://apis.io/apis/football-charts/football-charts-api/) — Football Charts API as documented publicly: 5 operations. Contract generated from the documentation by API Evangelist (2026-10-20); not the provider's own…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [mcp](https://apis.io/servers/football-charts/mcp/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Football Charts API Rules](https://apis.io/rules/football-charts/football-charts-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Football Charts Authentication](https://apis.io/security/football-charts/football-charts-authentication/)
+- [Football Charts Domain Security](https://apis.io/security/football-charts/football-charts-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Football Charts Plans Pricing](https://apis.io/plans/football-charts/football-charts-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Football Charts Rate Limits](https://apis.io/rate-limits/football-charts/football-charts-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.football-charts.com)
+- [Documentation](https://www.football-charts.com/developers)
+- [Getting started](https://www.football-charts.com/developers)
+- [API reference](https://www.football-charts.com/developers)
+- [Pricing](https://www.football-charts.com/developers)
+- [Sign up](https://www.football-charts.com/developers)
+- [Support](https://www.football-charts.com/about)
+- [Blog](https://www.football-charts.com/insights)
+- [Terms of service](https://www.football-charts.com/terms)
+- [Privacy policy](https://www.football-charts.com/privacy)
+
+## API Evangelist rating
+
+**Kin Score 60.0** — strong · rubric 0.24.0 · scored 2026-10-20
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.3 |
+| Contract quality | 39.8 |
+| Contract governance | 67.3 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 76.3 |
+
+**Agent readiness 27.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/football-charts/](https://apis.io/providers/football-charts/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Football Charts: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/football-charts/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
